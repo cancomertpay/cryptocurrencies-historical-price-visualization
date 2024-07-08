@@ -1,71 +1,47 @@
 "use client";
 
-import cryptoList from "@/data";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
+// Create a context for managing crypto date range selection
 const CryptoContext = createContext({
-  originalDataList: [],
-  dataList: [],
-  slug: "",
-  handleParams: () => {},
+  startDate: "",
+  endDate: "",
   handleDateSubmit: () => {},
 });
 
+// Custom hook to use the CryptoContext
 export const useCryptoContext = () => {
   const ctx = useContext(CryptoContext);
 
   if (!ctx) {
-    throw new Error("useCryptoContext must be within CryptoContextProvider.");
+    throw new Error("useCryptoContext must be used within a CryptoContextProvider.");
   }
 
   return ctx;
 };
 
+// Provider component for CryptoContext
 const CryptoContextProvider = ({ children }) => {
-  const [originalDataList, setOriginalDataList] = useState([]);
-  const [dataList, setDataList] = useState([]);
-  const [slug, setSlug] = useState("");
+  // State variables for start and end dates, initialized with default values
+  const [startDate, setStartDate] = useState(new Date("2010-07-18"));
+  const [endDate, setEndDate] = useState(new Date("2021-08-24"));
 
-  const handleParams = (slug) => {
-    setSlug(slug);
-  };
-
-  const getData = (slug) => {
-    return (
-      cryptoList.find((crypto) => crypto.symbol === slug).historicalPrice || []
-    );
-  };
-
+  // Function to handle date submission and update context state
   const handleDateSubmit = (startDate, endDate) => {
-    if (!startDate || !endDate) return;
+    setStartDate(new Date(startDate));
+    setEndDate(new Date(endDate));
 
-    const start = startDate.getTime();
-    const end = endDate.getTime();
-
-    const filteredData = originalDataList.filter((data) => {
-      const dataTime = new Date(data.Date).getTime();
-      return dataTime >= start && dataTime <= end;
-    });
-
-    setDataList(filteredData);
+    // Logging into MongoDB soon...
   };
 
-  useEffect(() => {
-    if (slug.trim() !== "") {
-      const cryptoData = getData(slug);
-      setOriginalDataList(cryptoData);
-      setDataList(cryptoData);
-    }
-  }, [slug]);
-
+  // Context values to be provided
   const contextValues = {
-    originalDataList,
-    dataList,
-    slug,
-    handleParams,
+    startDate,
+    endDate,
     handleDateSubmit,
   };
 
+  // Render the provider with the context values and children components
   return (
     <CryptoContext.Provider value={contextValues}>
       {children}

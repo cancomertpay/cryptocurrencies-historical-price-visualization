@@ -6,15 +6,14 @@ import ethData from "@/archive/Ethereum.json";
 import ltcData from "@/archive/Litecoin.json";
 import solData from "@/archive/Solana.json";
 
-
 const cryptoList = [
+  { symbol: "ETH", historicalPrice: ethData },
+  { symbol: "LTC", historicalPrice: ltcData },
+  { symbol: "ETC", historicalPrice: etcData },
+  { symbol: "SOL", historicalPrice: solData },
   { symbol: "AAVE", historicalPrice: aaveData },
   { symbol: "BTC", historicalPrice: btcData },
   { symbol: "EGLD", historicalPrice: egldData },
-  { symbol: "ETC", historicalPrice: etcData },
-  { symbol: "ETH", historicalPrice: ethData },
-  { symbol: "LTC", historicalPrice: ltcData },
-  { symbol: "SOL", historicalPrice: solData },
 ];
 
-export default cryptoList
+export default cryptoList;

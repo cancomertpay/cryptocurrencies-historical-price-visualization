@@ -11,8 +11,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useCryptoContext } from "@/store/crypto-context";
 
+// Register necessary components from Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,27 +23,35 @@ ChartJS.register(
   Legend
 );
 
-function LineChart() {
-  const { dataList, slug } = useCryptoContext();
+/**
+ * LineChart Component
+ * @param {string} title - The title for the chart.
+ * @param {Array<Object>} dataList - The array of data points for the chart.
+ */
+function LineChart({ title, dataList }) {
+  // Chart options
   const options = {
     responsive: true,
   };
+
+  // Chart data configuration
   const data = {
     labels: dataList.map((item) => item.Date),
     datasets: [
       {
-        label: slug,
+        label: title,
         data: dataList.map((item) => item.Price),
         borderColor: "#F0D85A",
         borderWidth: 3,
-        backgroundColor: "#000"
+        backgroundColor: "#000",
       },
     ],
   };
 
+  // Render the Line chart using react-chartjs-2
   return (
     <Line
-      className="px-20 pb-40 min-h-[700px] text-white"
+      className="text-white" // Custom class for styling
       options={options}
       data={data}
     />
