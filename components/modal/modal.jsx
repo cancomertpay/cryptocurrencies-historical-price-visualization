@@ -1,7 +1,7 @@
 "use client";
 
 import ReactDOM from "react-dom";
-import LineChart from "../charts/line-chart";
+import LineChart from "./line-chart";
 import { RxCross1 } from "react-icons/rx";
 import { useModalContext } from "@/store/modal-context";
 
