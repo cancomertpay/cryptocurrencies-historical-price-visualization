@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import CryptoContextProvider from "@/store/crypto-context";
+import Header from "@/components/header/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`bg-black/90 ${inter.className}`}>
+        <Header />
         <CryptoContextProvider>{children}</CryptoContextProvider>
       </body>
     </html>

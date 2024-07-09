@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import DataTableHead from "./data-table-head";
 import DataTableBody from "./data-table-body";
 import { useCryptoContext } from "@/store/crypto-context";
 import PaginationButtons from "./pagination-buttons";
 
+/**
+ * DataTable component displays a table of cryptocurrency data with sorting and pagination features.
+ *
+ * @param {Object} props - The component props
+ * @param {Array} props.data - Array of cryptocurrency data objects
+ * @returns {JSX.Element} The rendered component
+ */
 function DataTable({ data }) {
   const { startDate, endDate, selectedPair } = useCryptoContext();
 
@@ -17,7 +24,7 @@ function DataTable({ data }) {
   });
 
   // Memoized sorted and paginated data
-  const sortedAndPaginatedData = React.useMemo(() => {
+  const sortedAndPaginatedData = useMemo(() => {
     // Create a copy of data to avoid mutating the original
     let sortableItems = [...data];
 
@@ -61,7 +68,11 @@ function DataTable({ data }) {
     return sortableItems.slice(startIndex, endIndex);
   }, [data, sortConfig, currentPage]);
 
-  // Function to handle sorting request
+  /**
+   * Handles sorting requests for table columns.
+   *
+   * @param {string} key - The key of the column to sort by
+   */
   const requestSort = (key) => {
     let direction = "ascending";
     if (sortConfig.key === key) {
@@ -72,7 +83,12 @@ function DataTable({ data }) {
     setCurrentPage(1); // Reset to first page when sorting changes
   };
 
-  // Function to get sorting icon
+  /**
+   * Returns the sorting icon for a given column key.
+   *
+   * @param {string} key - The key of the column
+   * @returns {string|null} - The sorting icon or null
+   */
   const getSortIcon = (key) => {
     if (sortConfig.key === key) {
       return sortConfig.direction === "ascending" ? "↑" : "↓";
@@ -80,15 +96,26 @@ function DataTable({ data }) {
     return null;
   };
 
-  // Function to change current page
+  /**
+   * Changes the current page.
+   *
+   * @param {number} page - The page number to navigate to
+   */
   const goToPage = (page) => {
     setCurrentPage(page);
   };
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(data.length / pageSize);
+  const totalPages = useMemo(
+    () => Math.ceil(data.length / pageSize),
+    [data.length, pageSize]
+  );
 
-  // Generate page numbers
+  /**
+   * Generates an array of page numbers for pagination.
+   *
+   * @returns {number[]} - Array of page numbers
+   */
   const getPageNumbers = () => {
     const pages = [];
     if (totalPages <= 5) {
@@ -113,44 +140,45 @@ function DataTable({ data }) {
     return pages;
   };
 
+  // Reset to first page when context values change
   useEffect(() => {
-    setCurrentPage(1); // Reset to first page when context values changes
+    setCurrentPage(1);
   }, [startDate, endDate, selectedPair]);
 
   return (
     <div className="mt-20">
       {sortedAndPaginatedData.length > 0 && (
         <div className="overflow-x-auto shadow-md rounded-lg min-h-[717px] h-full flex flex-col">
-        {/* Sorting information display */}
-        <div className="flex justify-end p-2 bg-black/80 text-white font-bold border-b border-primary">
-          {sortConfig.key && (
-            <div>
-              Sorted by {sortConfig.key} ({sortConfig.direction})
-            </div>
-          )}
-        </div>
-        <div className="flex-grow flex flex-col justify-between h-full">
-          {/* Table structure */}
-          <table className="min-w-full divide-y divide-gray-200">
-            {/* Table header */}
-            <DataTableHead
-              requestSort={requestSort}
-              getSortIcon={getSortIcon}
+          {/* Sorting information display */}
+          <div className="text-end p-2 bg-black/80 text-white font-bold border-b border-primary">
+            {sortConfig.key && (
+              <div>
+                Sorted by {sortConfig.key} ({sortConfig.direction})
+              </div>
+            )}
+          </div>
+          <div className="flex-grow flex flex-col justify-between h-full">
+            {/* Table structure */}
+            <table className="min-w-full divide-y divide-gray-200">
+              {/* Table header */}
+              <DataTableHead
+                requestSort={requestSort}
+                getSortIcon={getSortIcon}
+              />
+              {/* Table body */}
+              <DataTableBody sortedData={sortedAndPaginatedData} />
+            </table>
+            {/* Pagination buttons */}
+            <PaginationButtons
+              goToPage={goToPage}
+              currentPage={currentPage}
+              getPageNumbers={getPageNumbers}
+              sortedAndPaginatedData={sortedAndPaginatedData}
+              pageSize={pageSize}
+              totalPages={totalPages}
             />
-            {/* Table body */}
-            <DataTableBody sortedData={sortedAndPaginatedData} />
-          </table>
-          {/* Pagination buttons */}
-          <PaginationButtons
-            goToPage={goToPage}
-            currentPage={currentPage}
-            getPageNumbers={getPageNumbers}
-            sortedAndPaginatedData={sortedAndPaginatedData}
-            pageSize={pageSize}
-            totalPages={totalPages}
-          />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

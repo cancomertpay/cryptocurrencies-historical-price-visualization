@@ -63,3 +63,13 @@ export const calculateLowestAndHighestPrice = (data) => {
         : highestPrice.toFixed(2),
   };
 };
+
+export const formatDateTime = (dateString) => {
+  const date = new Date(dateString);
+  const formattedDate = date.toDateString();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${formattedDate} ${hours}:${minutes}:${seconds}`;
+};

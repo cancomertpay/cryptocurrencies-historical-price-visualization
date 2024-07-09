@@ -5,9 +5,9 @@ import React, { Suspense } from "react";
 import ModalContextProvider from "@/store/modal-context";
 
 // components
-import Modal from "@/components/modal/modal";
-import PairContainer from "@/components/pairs/pair-container";
-import PairContainerHeader from "@/components/pairs/pair-container-header";
+import Modal from "@/components/pairs-dashboard/modal/modal";
+import PairContainer from "@/components/pairs-dashboard/pairs/pair-container";
+import PairContainerHeader from "@/components/pairs-dashboard/pairs/pair-container-header";
 
 // loading skeleton
 import CryptoListSkeleton from "@/components/UI/crypto-list-skeleton";

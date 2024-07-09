@@ -40,24 +40,39 @@ function PairListItem({ symbol, dataList }) {
 
   return (
     <li
-      className="bg-white/90 rounded-xl p-5 shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer hover:drop-shadow-custom"
+      className="bg-black/90 rounded-xl p-5 shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer hover:drop-shadow-custom"
       onClick={() =>
         handleOpenModal({ symbol, historicalPrice: filteredDataList })
       }
     >
       <h2 className="text-2xl font-bold text-primary pb-2">{symbol}</h2>
-      <div>
+      <div className="font-md text-sm text-white">
         <p>
-          Highest Average Difference:{" "}
-          {highestAverageDifference.averageDifference}
+          Highest Ave. Difference:{" "}
+          <span className="font-bold text-primary">
+            {highestAverageDifference.averageDifference}
+          </span>
         </p>
         <p>
-          Percentage Value: {highestAverageDifference.percentageDifference}%
+          Percentage Value:{" "}
+          <span className="font-bold text-primary">
+            {highestAverageDifference.percentageDifference}%
+          </span>
         </p>
       </div>
-      <div>
-        <p>Lowest price: {lowestAndHighestPrice.lowestPrice}</p>
-        <p>Highest Price: {lowestAndHighestPrice.highestPrice}</p>
+      <div className="text-white/90 font-bold text-sm">
+        <p>
+          Lowest price:{" "}
+          <span className="font-bold text-primary">
+            {lowestAndHighestPrice.lowestPrice}
+          </span>
+        </p>
+        <p>
+          Highest Price:{" "}
+          <span className="font-bold text-primary">
+            {lowestAndHighestPrice.highestPrice}
+          </span>
+        </p>
       </div>
     </li>
   );
