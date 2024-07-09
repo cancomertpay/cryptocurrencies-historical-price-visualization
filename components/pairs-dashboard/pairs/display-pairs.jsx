@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import { useCryptoContext } from "@/store/crypto-context";
-import PairListItem from "./pair-list-item";
 import PairCard from "./pair-card";
+import PairList from "./pair-list";
 
 /**
  * DisplayPairs component displays a list of cryptocurrency pairs or a detailed view of a selected pair
@@ -32,17 +32,7 @@ function DisplayPairs({ data }) {
   }, [selectedPairData, startDate, endDate]);
 
   if (!selectedPairData) {
-    return (
-      <ul className="grid gap-8 mt-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-5">
-        {data.map((item) => (
-          <PairListItem
-            key={item.symbol}
-            symbol={item.symbol}
-            dataList={item.historicalPrice}
-          />
-        ))}
-      </ul>
-    );
+    return <PairList data={data} />;
   }
 
   return (

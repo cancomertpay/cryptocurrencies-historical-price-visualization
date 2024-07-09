@@ -4,7 +4,7 @@ import DisplayPairs from "./display-pairs";
 async function PairContainer() {
   const data = await fetchAllData();
 
-  if (!data) return;
+  if (!data) return null;
 
   return <DisplayPairs data={data} />;
 }

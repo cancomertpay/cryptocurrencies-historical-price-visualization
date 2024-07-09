@@ -38,6 +38,11 @@ function PairListItem({ symbol, dataList }) {
     return calculateLowestAndHighestPrice(filteredDataList);
   }, [filteredDataList]);
 
+  // Skip rendering if highestAverageDifference is 0.000
+  if (highestAverageDifference.averageDifference === "0.000") {
+    return null;
+  }
+
   return (
     <li
       className="bg-black/90 rounded-xl p-5 shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer hover:drop-shadow-custom"
@@ -48,7 +53,7 @@ function PairListItem({ symbol, dataList }) {
       <h2 className="text-2xl font-bold text-primary pb-2">{symbol}</h2>
       <div className="font-md text-sm text-white">
         <p>
-          Highest Ave. Difference:{" "}
+          Highest Av. Difference:{" "}
           <span className="font-bold text-primary">
             {highestAverageDifference.averageDifference}
           </span>

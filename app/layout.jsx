@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import CryptoContextProvider from "@/store/crypto-context";
 import Header from "@/components/header/header";
+import ScrollToTop from "@/components/UI/scroll-to-top";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={`bg-black/90 ${inter.className}`}>
         <Header />
         <CryptoContextProvider>{children}</CryptoContextProvider>
+        <ScrollToTop />
       </body>
     </html>
   );

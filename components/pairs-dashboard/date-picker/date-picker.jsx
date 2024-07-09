@@ -50,7 +50,9 @@ function DatePicker() {
   };
 
   // Function to handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     if (!startDate || !endDate) {
       setError("Both start date and end date must be selected.");
       return;
@@ -91,7 +93,10 @@ function DatePicker() {
         <h2 className="text-2xl font-semibold mb-4">Select Date Range</h2>
 
         {/* Date Input Fields and Submit Button */}
-        <div className="flex flex-col lg:flex-row items-end justify-center gap-10">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col lg:flex-row items-end justify-center gap-10"
+        >
           <div className="flex flex-col lg:flex-row items-center justify-center gap-5">
             {/* Start Date Input */}
             <DateInput
@@ -108,9 +113,9 @@ function DatePicker() {
           </div>
           <div>
             {/* Submit Button */}
-            <SubmitButton onClick={handleSubmit} />
+            <SubmitButton />
           </div>
-        </div>
+        </form>
 
         {/* Error Message */}
         <div className="mt-4 text-red-500 font-medium min-h-[24px]">

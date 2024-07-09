@@ -64,6 +64,15 @@ export const calculateLowestAndHighestPrice = (data) => {
   };
 };
 
+// Function to sort data based on highest average difference
+const sortDataByHighestAverageDifference = (data) => {
+  return data.sort((a, b) => {
+    const highestAvgDiffA = calculateHighestAverageDifference(a.dataList).averageDifference;
+    const highestAvgDiffB = calculateHighestAverageDifference(b.dataList).averageDifference;
+    return highestAvgDiffB - highestAvgDiffA;
+  });
+};
+
 export const formatDateTime = (dateString) => {
   const date = new Date(dateString);
   const formattedDate = date.toDateString();
@@ -85,7 +94,7 @@ export const formatDate = (date) => {
 
 export const debounce = (func, delay) => {
   let timerId;
-  return function(...args) {
+  return function (...args) {
     const context = this;
     clearTimeout(timerId);
     timerId = setTimeout(() => {

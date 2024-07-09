@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { logData } from "@/lib/actions";
 import { debounce } from "@/utils/helper-functions";
 
@@ -37,12 +37,23 @@ const CryptoContextProvider = ({ children }) => {
   const [endDate, setEndDate] = useState(new Date("2021-08-24"));
   const [selectedPair, setSelectedPair] = useState("");
 
+  const scrollToSelectedPairCard = () => {
+    if (selectedPair) {
+      const element = document.getElementById(selectedPair);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  };
+
   // Function to handle date submission and update context state
   const handleDateSubmit = (newStartDate, newEndDate) => {
     setStartDate(
       newStartDate instanceof Date ? newStartDate : new Date(newStartDate)
     );
     setEndDate(newEndDate instanceof Date ? newEndDate : new Date(newEndDate));
+
+    scrollToSelectedPairCard();
 
     // Additional logic can be added here, such as logging or validation
     const instantDate = new Date().toISOString();
@@ -59,6 +70,10 @@ const CryptoContextProvider = ({ children }) => {
   const handleSelectedPair = (pairName) => {
     setSelectedPair(pairName);
   };
+
+  useEffect(() => {
+    scrollToSelectedPairCard();
+  }, [selectedPair]);
 
   // Memoized context values to be provided
   const contextValues = React.useMemo(
