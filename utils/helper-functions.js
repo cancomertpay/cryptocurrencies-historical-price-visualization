@@ -67,9 +67,29 @@ export const calculateLowestAndHighestPrice = (data) => {
 export const formatDateTime = (dateString) => {
   const date = new Date(dateString);
   const formattedDate = date.toDateString();
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
 
   return `${formattedDate} ${hours}:${minutes}:${seconds}`;
+};
+
+// Function to format date to "YYYY-MM-DD"
+export const formatDate = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+export const debounce = (func, delay) => {
+  let timerId;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
 };

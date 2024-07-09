@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 import { logData } from "@/lib/actions";
+import { debounce } from "@/utils/helper-functions";
 
 // Create a context for managing crypto date range selection and selected pair
 const CryptoContext = createContext({
@@ -25,6 +26,10 @@ export const useCryptoContext = () => {
   return ctx;
 };
 
+const debouncedLogData = debounce((startDate, endDate, instantDate) => {
+  logData(startDate, endDate, instantDate);
+}, 500);
+
 // Provider component for CryptoContext
 const CryptoContextProvider = ({ children }) => {
   // State variables for start and end dates, initialized with default values
@@ -42,7 +47,8 @@ const CryptoContextProvider = ({ children }) => {
     // Additional logic can be added here, such as logging or validation
     const instantDate = new Date().toISOString();
 
-    logData(
+    // Call debounced logData function
+    debouncedLogData(
       new Date(newStartDate).toISOString(),
       new Date(newEndDate).toISOString(),
       instantDate

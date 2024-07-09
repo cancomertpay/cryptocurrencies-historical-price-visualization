@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useCryptoContext } from "@/store/crypto-context";
 
 const cryptoOptions = [
@@ -20,7 +21,8 @@ const cryptoOptions = [
  * @returns {JSX.Element} Rendered PairSelector component.
  */
 const PairSelector = () => {
-  const { handleSelectedPair } = useCryptoContext();
+  const { handleSelectedPair, selectedPair } = useCryptoContext();
+
   /**
    * Handles change event when a new cryptocurrency pair is selected.
    * @param {Object} e - Event object containing the selected value.
@@ -42,6 +44,7 @@ const PairSelector = () => {
           id="crypto-select"
           className="mt-1 block w-full pl-3 pr-10 py-2 text-base text-white bg-black border border-gray-700 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md hover:bg-black/50 transition-all duration-300 cursor-pointer"
           onChange={handleChange}
+          value={selectedPair}
         >
           {cryptoOptions.map((option, index) => (
             <option
@@ -58,4 +61,4 @@ const PairSelector = () => {
   );
 };
 
-export default PairSelector;
+export default React.memo(PairSelector);
