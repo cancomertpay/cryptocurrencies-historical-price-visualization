@@ -38,8 +38,6 @@ function LoggedData() {
     fetchData();
   }, []);
 
-  console.log(loggedData);
-
   return (
     <div className="lg:my-10 lg:mx-32">
       {isLoading ? (

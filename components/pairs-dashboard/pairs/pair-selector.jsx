@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useCryptoContext } from "@/store/crypto-context";
 
 const cryptoOptions = [
@@ -22,7 +21,6 @@ const cryptoOptions = [
  */
 const PairSelector = () => {
   const { handleSelectedPair } = useCryptoContext();
-
   /**
    * Handles change event when a new cryptocurrency pair is selected.
    * @param {Object} e - Event object containing the selected value.

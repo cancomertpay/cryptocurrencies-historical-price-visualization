@@ -1,7 +1,7 @@
 "use client";
 
-import { logData } from "@/lib/actions";
 import React, { createContext, useContext, useState } from "react";
+import { logData } from "@/lib/actions";
 
 // Create a context for managing crypto date range selection and selected pair
 const CryptoContext = createContext({
@@ -33,16 +33,20 @@ const CryptoContextProvider = ({ children }) => {
   const [selectedPair, setSelectedPair] = useState("");
 
   // Function to handle date submission and update context state
-  const handleDateSubmit = async (newStartDate, newEndDate) => {
+  const handleDateSubmit = (newStartDate, newEndDate) => {
     setStartDate(
       newStartDate instanceof Date ? newStartDate : new Date(newStartDate)
     );
     setEndDate(newEndDate instanceof Date ? newEndDate : new Date(newEndDate));
 
     // Additional logic can be added here, such as logging or validation
-    const instandDate = new Date().toISOString();
+    const instantDate = new Date().toISOString();
 
-    await logData(startDate, endDate, instandDate);
+    logData(
+      new Date(newStartDate).toISOString(),
+      new Date(newEndDate).toISOString(),
+      instantDate
+    );
   };
 
   // Function to handle selection of a crypto pair
