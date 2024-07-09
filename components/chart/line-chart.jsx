@@ -47,13 +47,7 @@ function LineChart({ title, dataList }) {
   };
 
   // Render the Line chart using react-chartjs-2
-  return (
-    <Line
-      className="text-white" // Custom class for styling
-      options={options}
-      data={data}
-    />
-  );
+  return <Line className="text-white" options={options} data={data} />;
 }
 
 export default LineChart;

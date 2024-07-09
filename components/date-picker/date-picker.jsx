@@ -8,7 +8,7 @@ import SubmitButton from "./submit-button";
 // DatePicker Component
 // This component renders a date picker interface allowing users to select a date range and submit it.
 
-function DatePicker() {
+function  DatePicker() {
   // Destructuring handleDateSubmit from the crypto context
   const { handleDateSubmit } = useCryptoContext();
 
@@ -33,7 +33,7 @@ function DatePicker() {
   return (
     <div className="w-full rounded-full">
       <div
-        className={`flex flex-col items-center justify-center p-6 bg-black/80 text-white lg:rounded-xl shadow-md transition-all duration-300 ease-in-out`}
+        className={`flex flex-col items-center justify-center p-6 bg-black/80 text-white lg:rounded-b-xl shadow-md transition-all duration-300 ease-in-out`}
       >
         {/* Header for the Date Picker */}
         <h2 className="text-2xl font-semibold mb-4">Select Date Range</h2>

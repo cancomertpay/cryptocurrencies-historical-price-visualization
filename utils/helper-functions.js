@@ -1,20 +1,12 @@
-// Sorting function by date (desc)
-const sortByDateDesc = (data) => {
-  return data.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-};
-
 // Calculate highest average difference and percentage value
 export const calculateHighestAverageDifference = (data) => {
-  // Apply sorting to data
-  const sortedData = sortByDateDesc(data);
-
   // Initialize variables for total difference and total opening price
   let totalDifference = 0;
   let totalOpenPrice = 0;
-  const numberOfDays = sortedData.length;
+  const numberOfDays = data.length;
 
   // Calculate total difference and total opening price
-  sortedData.forEach((day) => {
+  data.forEach((day) => {
     const open = parseFloat(day.Open);
     const close = parseFloat(day.Price);
     const difference = Math.abs(open - close);
@@ -43,15 +35,12 @@ export const calculateHighestAverageDifference = (data) => {
 
 // Calculate lowest and highest price
 export const calculateLowestAndHighestPrice = (data) => {
-  // Apply sorting to data
-  const sortedData = sortByDateDesc(data);
-
   // Initialize variables for lowest and highest prices
   let lowestPrice = Infinity;
   let highestPrice = -Infinity;
 
   // Find lowest and highest prices in the dataset
-  sortedData.forEach((day) => {
+  data.forEach((day) => {
     const price = parseFloat(day.Price);
 
     if (price < lowestPrice) {
