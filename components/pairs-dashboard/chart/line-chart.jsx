@@ -40,8 +40,11 @@ function LineChart({ title, dataList }) {
           },
           maxRotation: 70, // Rotate labels to fit better
           minRotation: 70,
-          autoSkip: true, // Skip labels to avoid crowding
+          autoSkip: true, // Enable autoSkip to avoid overcrowding
           maxTicksLimit: 25, // Maximum number of labels to show
+        },
+        afterDataLimits: (axis) => {
+          axis.max += 1; // Extend the max value to ensure the last point is visible
         },
       },
       y: {
