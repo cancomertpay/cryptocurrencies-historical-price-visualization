@@ -75,7 +75,7 @@ function LineChart({ title, dataList }) {
         label: title,
         data: dataList.map((item) => item.Price),
         borderColor: "#F0D85A",
-        borderWidth: 3,
+        borderWidth: 1,
         backgroundColor: "#000",
       },
     ],
