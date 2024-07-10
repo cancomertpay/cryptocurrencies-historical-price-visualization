@@ -4,7 +4,7 @@ function DateInput({ title, value, onChange }) {
   return (
     <div>
       <label htmlFor="start-date" className="block text-gray-200">
-        {title}
+        {title} <span className="text-xs font-light">(MM/DD/YYYY)</span>
       </label>
       <input
         type="date"

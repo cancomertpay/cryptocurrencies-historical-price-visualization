@@ -34,11 +34,12 @@ function PairListItem({ symbol, dataList }) {
     return calculateHighestAverageDifference(filteredDataList);
   }, [filteredDataList]);
 
+  // Memoize the calculations to avoid unnecessary recalculations
   const lowestAndHighestPrice = useMemo(() => {
     return calculateLowestAndHighestPrice(filteredDataList);
   }, [filteredDataList]);
 
-  // Skip rendering if highestPrice is 0.000
+  // Skip rendering if highestPrice is 0.00
   if (lowestAndHighestPrice.highestPrice === "0.00") {
     return null;
   }
