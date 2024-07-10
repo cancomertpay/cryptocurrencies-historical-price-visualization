@@ -2,7 +2,9 @@
 
 import { useMemo } from "react";
 import PairListItem from "./pair-list-item";
-import { calculateHighestAverageDifference } from "@/utils/helper-functions";
+import {
+  sortDataByHigh,
+} from "@/utils/helper-functions";
 
 /**
  * PairList component renders a list of cryptocurrency pairs,
@@ -14,7 +16,7 @@ import { calculateHighestAverageDifference } from "@/utils/helper-functions";
  */
 function PairList({ data }) {
   const sortedData = useMemo(() => {
-    return sortDataByHighestAverageDifference(data);
+    return sortDataByHigh(data);
   }, [data]);
 
   return (
@@ -31,18 +33,5 @@ function PairList({ data }) {
     </div>
   );
 }
-
-// Sort data by highest average difference
-const sortDataByHighestAverageDifference = (data) => {
-  return data.sort((a, b) => {
-    const highestAvgDiffA = calculateHighestAverageDifference(
-      a.historicalPrice
-    ).averageDifference;
-    const highestAvgDiffB = calculateHighestAverageDifference(
-      b.historicalPrice
-    ).averageDifference;
-    return highestAvgDiffB - highestAvgDiffA;
-  });
-};
 
 export default PairList;

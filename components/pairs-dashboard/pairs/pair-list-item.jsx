@@ -38,8 +38,8 @@ function PairListItem({ symbol, dataList }) {
     return calculateLowestAndHighestPrice(filteredDataList);
   }, [filteredDataList]);
 
-  // Skip rendering if highestAverageDifference is 0.000
-  if (highestAverageDifference.averageDifference === "0.000") {
+  // Skip rendering if highestPrice is 0.000
+  if (lowestAndHighestPrice.highestPrice === "0.00") {
     return null;
   }
 

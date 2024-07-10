@@ -64,12 +64,12 @@ export const calculateLowestAndHighestPrice = (data) => {
   };
 };
 
-// Function to sort data based on highest average difference
-const sortDataByHighestAverageDifference = (data) => {
+// Sort data by high price
+export const sortDataByHigh = (data) => {
   return data.sort((a, b) => {
-    const highestAvgDiffA = calculateHighestAverageDifference(a.dataList).averageDifference;
-    const highestAvgDiffB = calculateHighestAverageDifference(b.dataList).averageDifference;
-    return highestAvgDiffB - highestAvgDiffA;
+    const highestPriceA = Math.max(...a.historicalPrice.map(item => item.High));
+    const highestPriceB = Math.max(...b.historicalPrice.map(item => item.High));
+    return highestPriceB - highestPriceA;
   });
 };
 
