@@ -27,3 +27,6 @@ Welcome to the Cryptocurrency Dashboard Application! This web application provid
 1. Set Date Range: Use the Date Picker component to select a desired start and end date.
 2. Explore Data: Navigate through the dashboard to explore cryptocurrency data visualized in charts.
 3. Detailed View: Click on any cryptocurrency card to open a modal and view detailed data in a sortable datatable.
+
+## Attention
+I host two different JSON-Servers on render.com: one for the log API at https://log-api-7cgr.onrender.com, and the other at https://case-study-api.onrender.com. These are the APIs currently used in the application and are functioning smoothly. However, render.com has a notice that 'Your free instance will spin down with inactivity, which can delay requests by 50 seconds or more.' This means that if the application doesn't send requests to the API for a long time, there may be delays in response times. This is not an issue directly related to the frontend application. Thank you for your understanding.
