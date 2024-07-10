@@ -10,7 +10,7 @@ This application visualizes historical price data for cryptocurrencies and allow
 - Data Visualization: Displays line charts for price trends of selected cryptocurrencies.
 - Detailed Analysis: Provides calculations for highest average daily price difference and lowest/highest prices within the selected date range.
 - Modal Popup: Clicking on a cryptocurrency card opens a modal with detailed data in a sortable datatable.
-- Logging: Logs date range selections into MongoDB.
+- Logging: Logs date range selections into JSON-Server.
 
 ## Technologies Used
 
@@ -18,7 +18,7 @@ This application visualizes historical price data for cryptocurrencies and allow
 - Tailwind CSS
 - Chart.js
 - React Chart.js 2
-- MongoDB (for logging)
+- JSON-Server
 - Docker
 
 ## Usage

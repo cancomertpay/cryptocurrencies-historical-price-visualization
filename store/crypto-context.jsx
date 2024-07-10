@@ -1,16 +1,16 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { logData } from "@/lib/actions";
-import { debounce } from "@/utils/helper-functions";
+import { logData } from "@/lib/actions"; // Import logData action from application-specific library
+import { debounce } from "@/utils/helper-functions"; // Import debounce utility function from application-specific utils
 
 // Create a context for managing crypto date range selection and selected pair
 const CryptoContext = createContext({
-  startDate: new Date("2010-07-18"),
-  endDate: new Date("2021-08-24"),
-  selectedPair: "",
-  handleDateSubmit: (newStartDate, newEndDate) => {},
-  handleSelectedPair: (pairName) => {},
+  startDate: new Date("2010-07-18"), // Default start date for crypto data range
+  endDate: new Date("2021-08-24"),   // Default end date for crypto data range
+  selectedPair: "",                  // Currently selected crypto pair
+  handleDateSubmit: (newStartDate, newEndDate) => {},  // Placeholder function for handling date submission
+  handleSelectedPair: (pairName) => {},                // Placeholder function for handling selection of a crypto pair
 });
 
 // Custom hook to use the CryptoContext
@@ -26,8 +26,9 @@ export const useCryptoContext = () => {
   return ctx;
 };
 
+// Debounce logData function to prevent rapid successive calls
 const debouncedLogData = debounce((startDate, endDate, instantDate) => {
-  logData(startDate, endDate, instantDate);
+  logData(startDate, endDate, instantDate); // Call logData action with debounced parameters
 }, 500);
 
 // Provider component for CryptoContext
@@ -35,8 +36,9 @@ const CryptoContextProvider = ({ children }) => {
   // State variables for start and end dates, initialized with default values
   const [startDate, setStartDate] = useState(new Date("2010-07-18"));
   const [endDate, setEndDate] = useState(new Date("2021-08-24"));
-  const [selectedPair, setSelectedPair] = useState("");
+  const [selectedPair, setSelectedPair] = useState(""); // State variable for selected crypto pair
 
+  // Function to scroll to the selected crypto pair card
   const scrollToSelectedPairCard = () => {
     if (selectedPair) {
       const element = document.getElementById(selectedPair);
@@ -48,17 +50,19 @@ const CryptoContextProvider = ({ children }) => {
 
   // Function to handle date submission and update context state
   const handleDateSubmit = (newStartDate, newEndDate) => {
+    // Update start and end dates based on provided values
     setStartDate(
       newStartDate instanceof Date ? newStartDate : new Date(newStartDate)
     );
     setEndDate(newEndDate instanceof Date ? newEndDate : new Date(newEndDate));
 
+    // Scroll to the selected crypto pair card
     scrollToSelectedPairCard();
 
     // Additional logic can be added here, such as logging or validation
     const instantDate = new Date().toISOString();
 
-    // Call debounced logData function
+    // Call debounced logData function with formatted date parameters
     debouncedLogData(
       new Date(newStartDate).toISOString(),
       new Date(newEndDate).toISOString(),
@@ -68,14 +72,15 @@ const CryptoContextProvider = ({ children }) => {
 
   // Function to handle selection of a crypto pair
   const handleSelectedPair = (pairName) => {
-    setSelectedPair(pairName);
+    setSelectedPair(pairName); // Set selected crypto pair based on user selection
   };
 
+  // Effect to scroll to the selected pair card whenever selectedPair changes
   useEffect(() => {
     scrollToSelectedPairCard();
   }, [selectedPair]);
 
-  // Memoized context values to be provided
+  // Memoized context values to be provided to consumers
   const contextValues = React.useMemo(
     () => ({
       startDate,
@@ -87,7 +92,7 @@ const CryptoContextProvider = ({ children }) => {
     [startDate, endDate, selectedPair]
   );
 
-  // Render the provider with the context values and children components
+  // Render the provider with the memoized context values and children components
   return (
     <CryptoContext.Provider value={contextValues}>
       {children}

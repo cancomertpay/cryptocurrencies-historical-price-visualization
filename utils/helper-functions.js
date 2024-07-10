@@ -1,4 +1,9 @@
-// Calculate highest average difference and percentage value
+/**
+ * Calculate highest average difference and percentage value.
+ * 
+ * @param {Array<Object>} data - Array of daily price data objects.
+ * @returns {Object} Object containing formatted average difference and percentage difference.
+ */
 export const calculateHighestAverageDifference = (data) => {
   // Initialize variables for total difference and total opening price
   let totalDifference = 0;
@@ -33,7 +38,12 @@ export const calculateHighestAverageDifference = (data) => {
   };
 };
 
-// Calculate lowest and highest price
+/**
+ * Calculate lowest and highest price from data.
+ * 
+ * @param {Array<Object>} data - Array of price data objects.
+ * @returns {Object} Object containing formatted lowest and highest prices.
+ */
 export const calculateLowestAndHighestPrice = (data) => {
   // Initialize variables for lowest and highest prices
   let lowestPrice = Infinity;
@@ -64,7 +74,12 @@ export const calculateLowestAndHighestPrice = (data) => {
   };
 };
 
-// Sort data by high price
+/**
+ * Sort data objects by highest price.
+ * 
+ * @param {Array<Object>} data - Array of objects with nested historical price arrays.
+ * @returns {Array<Object>} Sorted array of objects based on highest price.
+ */
 export const sortDataByHigh = (data) => {
   return data.sort((a, b) => {
     const highestPriceA = Math.max(...a.historicalPrice.map(item => item.High));
@@ -73,6 +88,12 @@ export const sortDataByHigh = (data) => {
   });
 };
 
+/**
+ * Format date and time string to readable format.
+ * 
+ * @param {String} dateString - Date and time string.
+ * @returns {String} Formatted date and time string.
+ */
 export const formatDateTime = (dateString) => {
   const date = new Date(dateString);
   const formattedDate = date.toDateString();
@@ -83,7 +104,12 @@ export const formatDateTime = (dateString) => {
   return `${formattedDate} ${hours}:${minutes}:${seconds}`;
 };
 
-// Function to format date to "YYYY-MM-DD"
+/**
+ * Format date to "YYYY-MM-DD" format.
+ * 
+ * @param {Date|String} date - Date object or string.
+ * @returns {String} Formatted date string.
+ */
 export const formatDate = (date) => {
   const d = new Date(date);
   const year = d.getFullYear();
@@ -92,6 +118,13 @@ export const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
+/**
+ * Create a debounced function that delays invoking the original function until after a specified delay.
+ * 
+ * @param {Function} func - Function to be debounced.
+ * @param {Number} delay - Delay in milliseconds.
+ * @returns {Function} Debounced function.
+ */
 export const debounce = (func, delay) => {
   let timerId;
   return function (...args) {
